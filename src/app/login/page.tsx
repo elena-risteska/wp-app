@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { useState } from "react";
 
@@ -25,24 +26,21 @@ export default function LoginPage() {
           <div className="flex items-center md:p-8 p-6 bg-white md:rounded-tl-[55px] md:rounded-bl-[55px] h-full">
             <form className="max-w-lg w-full mx-auto" action="#">
               <div className="mb-12">
-                <h3 className="text-stone-950 text-4xl font-extrabold">
+                <h1 className="text-stone-950 text-4xl font-extrabold">
                   Sign in
-                </h3>
+                </h1>
               </div>
 
               <div>
-                <label
-                  htmlFor="email"
-                  className="text-stone-950 text-xs block mb-2"
-                >
+                <label className="text-stone-950 text-xs block mb-2">
                   Email
                 </label>
                 <div className="relative flex items-center">
                   <input
                     name="email"
-                    type="text"
+                    type="email"
                     required
-                    className="w-full text-sm border-b border-gray-300 focus:border-gray-800 px-2 py-3 outline-none"
+                    className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
                     placeholder="Enter email"
                   />
                   <svg
@@ -61,13 +59,13 @@ export default function LoginPage() {
                       </clipPath>
                     </defs>
                     <g
-                      clip-path="url(#a)"
+                      clipPath="url(#a)"
                       transform="matrix(1.33 0 0 -1.33 0 682.667)"
                     >
                       <path
                         fill="none"
-                        stroke-miterlimit="10"
-                        stroke-width="40"
+                        strokeMiterlimit="10"
+                        strokeWidth="40"
                         d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"
                         data-original="#000000"
                       ></path>
@@ -81,10 +79,7 @@ export default function LoginPage() {
               </div>
 
               <div className="mt-8">
-                <label
-                  htmlFor="password"
-                  className="text-stone-950 text-xs block mb-2"
-                >
+                <label className="text-stone-950 text-xs block mb-2">
                   Password
                 </label>
                 <div className="relative flex items-center">
@@ -92,7 +87,7 @@ export default function LoginPage() {
                     name="password"
                     type={showPassword ? "text" : "password"}
                     required
-                    className="w-full text-sm border-b border-gray-300 focus:border-gray-800 px-2 py-3 outline-none"
+                    className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
                     placeholder="Enter password"
                   />
                   <button type="button" onClick={handlePassword}>
@@ -118,12 +113,9 @@ export default function LoginPage() {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 shrink-0 text-stone-800 focus:ring-stone-800 border-gray-300 rounded"
+                    className="h-4 w-4 shrink-0 text-stone-800 accent-stone-800 focus:ring-stone-800 border-gray-300 rounded"
                   />
-                  <label
-                    htmlFor="remember-me"
-                    className="text-stone-950 ml-3 block text-sm"
-                  >
+                  <label className="text-stone-950 ml-3 block text-sm">
                     Remember me
                   </label>
                 </div>
@@ -141,18 +133,18 @@ export default function LoginPage() {
                 <input
                   type="submit"
                   value="Sign in"
-                  className="w-full py-3 px-6 text-sm font-semibold tracking-wider rounded-full text-white bg-stone-950 hover:bg-[#333] focus:outline-none"
+                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
                 />
               </div>
 
               <div className="my-6 flex items-center">
-                <hr className="w-full border-gray-300" />
+                <hr className="w-full border-stone-300" />
               </div>
               <p className="text-stone-950 text-sm mt-4 ">
                 Don't have an account?{" "}
                 <a
                   href="register"
-                  className="text-stone-800 font-semibold hover:underline ml-1 whitespace-nowrap"
+                  className="cursor-pointer text-stone-800 font-semibold hover:underline ml-1 whitespace-nowrap"
                 >
                   Register here
                 </a>
