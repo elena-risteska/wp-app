@@ -146,16 +146,15 @@ export default function RegisterPage() {
               </div>
               <div className="m-3">
                 <label className="text-stone-950 text-xs block mb-2 ">
-                  Birth date
+                  Position
                 </label>
                 <div className="relative flex items-center">
-                  <input
-                    name="birth date"
-                    type="date"
-                    required
-                    className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
-                    placeholder="Enter birth date"
-                  />
+                  <select className="w-full text-sm text-stone-500 border border-stone-400 rounded h-8 px-2 mt-2 outline-none">
+                    <option value="admin">Admin</option>
+                    <option value="manager">Manager</option>
+                    <option value="HR">HR</option>
+                    <option value="user">User</option>
+                  </select>
                 </div>
               </div>
               <div className="m-3">

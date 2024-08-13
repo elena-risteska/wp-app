@@ -14,6 +14,7 @@ export default function EmployeeTable() {
   const startIndex = lastIndex - recordsPerPage;
   const numberOfPages = Math.ceil(Data.length / recordsPerPage);
   const records = Data.slice(startIndex, lastIndex);
+  let i = 1;
 
   function nextPage() {
     if (currentPage != numberOfPages) {
@@ -36,18 +37,24 @@ export default function EmployeeTable() {
       <table className="w-11/12 m-auto bg-white overflow-hidden rounded-3xl">
         <thead className="whitespace-nowrap text-center bg-stone-900">
           <tr>
+            <td className="w-1/12 p-4 text-xs font-semibold text-stone-200">
+              #
+            </td>
             {Headings.map((heading) => (
               <td className="w-1/6 p-4 text-xs font-semibold text-stone-200">
                 {heading.value}
               </td>
             ))}
+            <td className="w-1/12 p-4 text-xs font-semibold text-stone-200">
+              Actions
+            </td>
           </tr>
         </thead>
 
         <tbody className="whitespace-nowrap text-center">
           {records.map((data) => (
             <tr className="hover:bg-stone-50">
-              <td className="p-4 text-[15px] text-stone-950">{data.id}</td>
+              <td className="p-4 text-[15px] text-stone-950">{i++}</td>
               <td className="p-4 text-[15px] text-stone-950">
                 {data.firstName}
               </td>
@@ -58,7 +65,7 @@ export default function EmployeeTable() {
               <td className="p-4 text-[15px] text-stone-950">
                 {data.position}
               </td>
-              <td className="p-4 text-[15px] text-stone-950 border-l border-stone-200">
+              <td className="p-4 text-[15px] text-stone-950">
                 <Link href={`/employees/${data.id}/edit`}>
                   <EditButton />
                 </Link>

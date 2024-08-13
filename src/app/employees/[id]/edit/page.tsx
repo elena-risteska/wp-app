@@ -3,6 +3,7 @@
 import "@/app/employees/styles.css";
 import DeleteButton from "@/app/components/DeleteButton";
 import Data from "@/app/employees/data.json";
+import TimeEntries from "@/app/components/TimeEntries";
 
 import { useParams } from "next/navigation";
 
@@ -15,8 +16,8 @@ export default function ProfilePage() {
       <h1 className="pl-20 pt-10 text-stone-950 text-4xl font-extrabold">
         Employee profile
       </h1>
-      <div className="items-center h-fit py-10 ml-20 mt-6 w-1/4">
-        <div className="items-center md:p-8 p-6 bg-white rounded-3xl h-full">
+      <div className="flex flex-row h-fit w-full">
+        <div className="items-center my-10 md:p-8 p-6 ml-20 bg-white rounded-3xl h-fit w-1/4">
           <div className="text-right mr-6">
             <h1 className="text-stone-950 text-xl font-extrabold">
               {Data[id - 1].firstName + " " + Data[id - 1].lastName}
@@ -91,6 +92,9 @@ export default function ProfilePage() {
           <div className="mt-8">
             <DeleteButton />
           </div>
+        </div>
+        <div className="md:p-8 p-4 mx-20 my-10 bg-white rounded-3xl h-full w-3/4">
+          <TimeEntries />
         </div>
       </div>
     </>
