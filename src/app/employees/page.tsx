@@ -3,7 +3,8 @@
 import "./styles.css";
 
 import EmployeeTable from "../components/EmployeeTable";
-import AddButton from "../components/AddButton";
+import AddEmployee from "../components/AddEmployee";
+import AddEntries from "../components/AddEntries";
 
 export default function EmployeesPage() {
   return (
@@ -13,7 +14,10 @@ export default function EmployeesPage() {
       </h1>
 
       <div className="items-center px-32 py-6 h-fit m-auto">
-        <AddButton />
+        <div className="flex flex-row mr-14 float-right">
+          <AddEntries />
+          <AddEmployee />
+        </div>
         <EmployeeTable />
       </div>
     </>

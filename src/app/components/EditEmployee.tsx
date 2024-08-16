@@ -1,4 +1,4 @@
-export default function EditButton() {
+export default function EditEmployee() {
   return (
     <>
       <button type="button" title="Edit">

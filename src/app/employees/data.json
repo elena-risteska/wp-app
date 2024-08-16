@@ -11,7 +11,7 @@
     "firstName": "John",
     "lastName": "Doe",
     "email": "john@example.com",
-    "position": "Admin"
+    "position": "HR"
   },
   {
     "id": 3,
@@ -39,7 +39,7 @@
     "firstName": "John",
     "lastName": "Doe",
     "email": "john@example.com",
-    "position": "Admin"
+    "position": "User"
   },
   {
     "id": 7,
@@ -53,7 +53,7 @@
     "firstName": "John",
     "lastName": "Doe",
     "email": "john@example.com",
-    "position": "Admin"
+    "position": "HR"
   },
   {
     "id": 9,
@@ -67,7 +67,7 @@
     "firstName": "John",
     "lastName": "Doe",
     "email": "john@example.com",
-    "position": "Admin"
+    "position": "Manager"
   },
   {
     "id": 11,

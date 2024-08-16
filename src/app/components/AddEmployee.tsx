@@ -1,9 +1,7 @@
 import { useState } from "react";
 
-export default function AddEntry() {
+export default function AddEmployee() {
   const [modal, setModal] = useState(false);
-  const [dataValue, setDataValue] = useState(false);
-  const [selectValue, setSelectValue] = useState(false);
 
   return (
     <>
@@ -11,9 +9,9 @@ export default function AddEntry() {
         <button
           onClick={() => setModal(true)}
           type="button"
-          className="w-fit float-left py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-green-800 hover:bg-green-700 focus:outline-none"
+          className="w-fit text-nowrap ml-4 py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-green-800 hover:bg-green-700 focus:outline-none"
         >
-          + Add time entry
+          + Add new employee
         </button>
       </div>
       {modal ? (
@@ -25,100 +23,78 @@ export default function AddEntry() {
                   <form className="max-w-lg w-full mx-auto" action="#">
                     <div className="mb-12">
                       <h1 className="text-stone-950 text-4xl font-extrabold">
-                        Add new time entry
+                        Add new employee
                       </h1>
                     </div>
                     <div className="m-3">
                       <label className="text-stone-950 text-xs block mb-2 ">
-                        Date
+                        First name
                       </label>
                       <div className="relative flex items-center">
                         <input
-                          disabled={selectValue === true && true}
-                          onChange={() => setDataValue(true)}
-                          name="date"
-                          type="date"
+                          name="first name"
+                          type="text"
                           required
                           className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
+                          placeholder="Enter first name"
                         />
                       </div>
                     </div>
                     <div className="m-3">
                       <label className="text-stone-950 text-xs block mb-2 ">
-                        Clock in
+                        Last name
                       </label>
                       <div className="relative flex items-center">
                         <input
-                          disabled={selectValue === true && true}
-                          onChange={() => setDataValue(true)}
-                          name="clock in"
-                          type="time"
+                          name="last name"
+                          type="text"
                           required
                           className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
+                          placeholder="Enter last name"
                         />
                       </div>
                     </div>
                     <div className="m-3">
                       <label className="text-stone-950 text-xs block mb-2 ">
-                        Clock out
+                        Email
                       </label>
                       <div className="relative flex items-center">
                         <input
-                          disabled={selectValue === true && true}
-                          onChange={() => setDataValue(true)}
-                          name="clock out"
-                          type="time"
+                          name="email"
+                          type="text"
                           required
                           className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
+                          placeholder="Enter email"
                         />
                       </div>
                     </div>
                     <div className="m-3">
                       <label className="text-stone-950 text-xs block mb-2 ">
-                        Choose other option
+                        Position
                       </label>
                       <div className="relative flex items-center">
-                        <select
-                          disabled={dataValue === true && true}
-                          onChange={() => setSelectValue(true)}
-                          className="w-full text-sm text-stone-500 border border-stone-400 rounded h-8 px-1 mx-4 outline-none"
-                        >
-                          <option value="holiday">Holiday</option>
-                          <option value="parental leave">Parental leave</option>
+                        <select className="w-full text-sm text-stone-500 border border-stone-400 rounded h-8 px-2 mx-4 mt-2 outline-none">
+                          <option value="admin">Admin</option>
+                          <option value="manager">Manager</option>
+                          <option value="HR">HR</option>
+                          <option value="user">User</option>
                         </select>
                       </div>
                     </div>
-
                     <div className="mt-12">
                       <input
                         type="submit"
-                        value="Add time entry"
+                        value="Add employee"
                         className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-green-900 hover:bg-green-800 focus:outline-none"
                       />
                     </div>
-                    <div className="mt-8">
-                      <button
-                        type="reset"
-                        onClick={() => {
-                          setDataValue(false);
-                          setSelectValue(false);
-                        }}
-                        className="float-left w-1/4 py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-stone-800 hover:bg-stone-700 focus:outline-none"
-                      >
-                        Reset
-                      </button>
-                      <button
-                        type="button"
-                        className="w-2/4 float-right py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-stone-800 hover:bg-stone-700 focus:outline-none"
-                        onClick={() => {
-                          setDataValue(false);
-                          setSelectValue(false);
-                          setModal(false);
-                        }}
-                      >
-                        Cancel
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      className="w-full my-3 py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
+                      onClick={() => setModal(false)}
+                    >
+                      Close
+                    </button>
                   </form>
                 </div>
               </div>

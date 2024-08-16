@@ -1,16 +1,16 @@
 import { useState } from "react";
 
-export default function DeleteEntry() {
+export default function DeleteEmployee() {
   const [modal, setModal] = useState(false);
 
   return (
     <>
       <button
         type="button"
-        className="w-fit float-right py-2 px-4 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-red-800 hover:bg-red-700 focus:outline-none"
+        className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-red-800 hover:bg-red-700 focus:outline-none"
         onClick={() => setModal(true)}
       >
-        Delete
+        Delete employee
       </button>
       {modal ? (
         <>
@@ -21,7 +21,7 @@ export default function DeleteEntry() {
                   <form className="max-w-lg w-full mx-auto" action="#">
                     <div className="mb-12">
                       <h1 className="text-stone-950 text-center text-3xl font-extrabold">
-                        Are you sure you want to delete this time entry?
+                        Are you sure you want to delete this employee?
                       </h1>
                     </div>
                     <div className="mt-8">

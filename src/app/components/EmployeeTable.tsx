@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import EditButton from "./EditButton";
 import Headings from "../employees/headings.json";
 import Data from "../employees/data.json";
+import EditEmployee from "./EditEmployee";
 
 export default function EmployeeTable() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +14,6 @@ export default function EmployeeTable() {
   const startIndex = lastIndex - recordsPerPage;
   const numberOfPages = Math.ceil(Data.length / recordsPerPage);
   const records = Data.slice(startIndex, lastIndex);
-  let i = 1;
 
   function nextPage() {
     if (currentPage != numberOfPages) {
@@ -32,6 +31,7 @@ export default function EmployeeTable() {
     let n = parseInt(e.target.value);
     setRecordsPerPage(n);
   }
+
   return (
     <>
       <table className="w-11/12 m-auto bg-white overflow-hidden rounded-3xl">
@@ -54,7 +54,9 @@ export default function EmployeeTable() {
         <tbody className="whitespace-nowrap text-center">
           {records.map((data) => (
             <tr className="hover:bg-stone-50">
-              <td className="p-4 text-[15px] text-stone-950">{i++}</td>
+              <td className="p-4 text-[15px] text-stone-950">
+                <span className="">{Data.indexOf(data) + 1}</span>
+              </td>
               <td className="p-4 text-[15px] text-stone-950">
                 {data.firstName}
               </td>
@@ -67,7 +69,7 @@ export default function EmployeeTable() {
               </td>
               <td className="p-4 text-[15px] text-stone-950">
                 <Link href={`/employees/${data.id}/edit`}>
-                  <EditButton />
+                  <EditEmployee />
                 </Link>
               </td>
             </tr>
