@@ -3,7 +3,7 @@ export default function ForgotPasswordPage() {
     <>
       <div className="font-[sans-serif] bg-stone-300 md:h-screen">
         <div className="flex items-center h-fit w-fit m-auto py-24">
-          <div className="flex items-center md:p-8 p-6 bg-white rounded-3xl h-full">
+          <div className="flex items-center md:p-8 p-6 bg-white h-full">
             <form className="max-w-lg w-full mx-auto" action="#">
               <div className="mb-12">
                 <h1 className="text-stone-950 text-4xl font-extrabold">
@@ -61,7 +61,7 @@ export default function ForgotPasswordPage() {
                 <input
                   type="submit"
                   value="Send code"
-                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
+                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
                 />
               </div>
 

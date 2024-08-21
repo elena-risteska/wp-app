@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import Headings from "../employees/headings.json";
-import Data from "../employees/data.json";
+import Headings from "@/headings.json";
+import Data from "@/data.json";
 import EditEmployee from "./EditEmployee";
 
 export default function EmployeeTable() {
@@ -34,7 +34,7 @@ export default function EmployeeTable() {
 
   return (
     <>
-      <table className="w-11/12 m-auto bg-white overflow-hidden rounded-3xl">
+      <table className="w-11/12 m-auto bg-white overflow-hidden">
         <thead className="whitespace-nowrap text-center bg-stone-900">
           <tr>
             <td className="w-1/12 p-4 text-xs font-semibold text-stone-200">
@@ -88,7 +88,7 @@ export default function EmployeeTable() {
           <select
             value={recordsPerPage}
             onChange={handleChange}
-            className="text-sm text-stone-500 border border-stone-400 rounded h-8 px-1 mx-4 outline-none"
+            className="text-sm text-stone-500 border border-stone-400 h-8 px-1 mx-4 outline-none"
           >
             <option value="5">5</option>
             <option value="10">10</option>
@@ -99,7 +99,7 @@ export default function EmployeeTable() {
             <button
               type="button"
               onClick={() => prevPage()}
-              className="flex items-center justify-center cursor-pointer bg-stone-200 hover:bg-stone-300 w-8 h-8 rounded"
+              className="flex items-center justify-center cursor-pointer bg-stone-200 hover:bg-stone-300 w-8 h-8"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -112,19 +112,19 @@ export default function EmployeeTable() {
                 />
               </svg>
             </button>
-            <span className="flex items-center justify-center text-sm w-6 h-8 rounded">
+            <span className="flex items-center justify-center text-sm w-6 h-8">
               {currentPage}
             </span>
-            <span className="flex items-center justify-center text-sm w-6 h-8 rounded">
+            <span className="flex items-center justify-center text-sm w-6 h-8">
               /
             </span>
-            <span className="flex items-center justify-center text-sm w-6 h-8 rounded">
+            <span className="flex items-center justify-center text-sm w-6 h-8">
               {numberOfPages}
             </span>
             <button
               type="button"
               onClick={() => nextPage()}
-              className="flex items-center justify-center cursor-pointer bg-stone-200 hover:bg-stone-300 w-8 h-8 rounded"
+              className="flex items-center justify-center cursor-pointer bg-stone-200 hover:bg-stone-300 w-8 h-8"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

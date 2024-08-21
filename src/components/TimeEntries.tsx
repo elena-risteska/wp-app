@@ -2,7 +2,7 @@ import AddEntry from "./AddEntry";
 import DeleteEntry from "./DeleteEntry";
 import EditEntry from "./EditEntry";
 
-import Headings from "../employees/headings.json";
+import Headings from "@/headings.json";
 
 export default function TimeEntries() {
   return (
@@ -14,14 +14,14 @@ export default function TimeEntries() {
       <div className="mt-12 w-full">
         {Headings.map((heading) => (
           <div className="flex">
-            <div className="my-4 md:p-6 p-4 bg-stone-100 rounded-3xl h-fit w-full">
-              <p className="text-nowrap items-center justify-center text-sm w-6 h-8 rounded">
+            <div className="my-4 md:p-6 p-4 bg-stone-100 h-fit w-full">
+              <p className="text-nowrap items-center justify-center text-sm w-6 h-8">
                 Date: {heading.value}
               </p>
-              <p className="text-nowrap items-center justify-center text-sm w-6 h-8 rounded">
+              <p className="text-nowrap items-center justify-center text-sm w-6 h-8">
                 Clock in: {heading.value}
               </p>
-              <p className="text-nowrap items-center justify-center text-sm w-6 h-8 rounded">
+              <p className="text-nowrap items-center justify-center text-sm w-6 h-8">
                 Clock out: {heading.value}
               </p>
               <DeleteEntry />

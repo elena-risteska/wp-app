@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import authentication from "./authentication.svg";
+import authentication from "../../../public/authentication.svg";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +23,7 @@ export default function LoginPage() {
             />
           </div>
 
-          <div className="flex items-center md:p-8 p-6 bg-white md:rounded-tl-[55px] md:rounded-bl-[55px] h-full">
+          <div className="flex items-center md:p-8 p-6 bg-white h-full">
             <form className="max-w-lg w-full mx-auto" action="#">
               <div className="mb-12">
                 <h1 className="text-stone-950 text-4xl font-extrabold">
@@ -113,7 +113,7 @@ export default function LoginPage() {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 shrink-0 text-stone-800 accent-stone-800 focus:ring-stone-800 border-gray-300 rounded"
+                    className="h-4 w-4 shrink-0 text-stone-800 accent-stone-800 focus:ring-stone-800 border-gray-300 rounded-none"
                   />
                   <label className="text-stone-950 ml-3 block text-sm">
                     Remember me
@@ -133,7 +133,7 @@ export default function LoginPage() {
                 <input
                   type="submit"
                   value="Sign in"
-                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
+                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
                 />
               </div>
 

@@ -10,11 +10,11 @@ export default function RegisterPage() {
   return (
     <>
       <div className="font-[sans-serif] bg-stone-300 md:h-screen">
-        <div className="flex items-center h-fit w-fit m-auto py-32">
-          <div className="flex items-center md:p-8 p-6 bg-white rounded-3xl h-full">
-            <div className="my-6 items-center">
-              <h1 className="text-stone-950 text-4xl font-extrabold">
-                Create an account
+        <div className="flex items-center h-full w-fit mx-auto py-32">
+          <div className="flex items-center md:p-8 p-6 bg-white w-fit h-fit">
+            <div className="my-6 items-center w-fit">
+              <h1 className="text-stone-950 text-4xl font-extrabold mr-32">
+                Create <br></br>an account
               </h1>
               <hr className="w-10/12 border-stone-300 my-8" />
               <p className="text-stone-800 text-sm">
@@ -27,10 +27,7 @@ export default function RegisterPage() {
                 </a>
               </p>
             </div>
-            <form
-              className="max-w-lg w-full mx-auto grid grid-cols-2"
-              action="#"
-            >
+            <form className="w-2/3 h-fit mx-auto" action="#">
               <div className="m-3">
                 <label className="text-stone-950 text-xs block mb-2 ">
                   First name
@@ -146,19 +143,6 @@ export default function RegisterPage() {
               </div>
               <div className="m-3">
                 <label className="text-stone-950 text-xs block mb-2 ">
-                  Position
-                </label>
-                <div className="relative flex items-center">
-                  <select className="w-full text-sm text-stone-500 border border-stone-400 rounded h-8 px-2 mt-2 outline-none">
-                    <option value="admin">Admin</option>
-                    <option value="manager">Manager</option>
-                    <option value="HR">HR</option>
-                    <option value="user">User</option>
-                  </select>
-                </div>
-              </div>
-              <div className="m-3">
-                <label className="text-stone-950 text-xs block mb-2 ">
                   Email
                 </label>
                 <div className="relative flex items-center">
@@ -265,7 +249,7 @@ export default function RegisterPage() {
                 <input
                   type="submit"
                   value="Register"
-                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider rounded-full text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
+                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
                 />
               </div>
             </form>
