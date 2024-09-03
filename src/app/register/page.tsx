@@ -1,17 +1,49 @@
 "use client";
-import { useState } from "react";
+
+import { POST } from "@/client";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
-  function handlePassword() {
-    setShowPassword(!showPassword);
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    try {
+      const response: any = await POST("/api/register", {
+        body: {
+          email: formData.get("email")?.valueOf().toString(),
+          name: formData.get("name")?.valueOf().toString(),
+          password: formData.get("password")?.valueOf().toString(),
+          password_confirmation: formData
+            .get("confirm password")
+            ?.valueOf()
+            .toString(),
+        },
+      });
+
+      console.log(response);
+
+      if (response.response.status === 201) {
+        router.push("/employees");
+      } else {
+        setError(`Error: ${response.response.statusText || "Unknown error"}`);
+      }
+      localStorage.setItem("token", response.data.access_token);
+    } catch (err) {
+      setError("An unexpected error occurred.");
+      console.error(err);
+    }
   }
   return (
     <>
-      <div className="font-[sans-serif] bg-stone-300 md:h-screen">
+      <div className="font-[sans-serif] bg-stone-950 md:h-screen">
         <div className="flex items-center h-full w-fit mx-auto py-32">
-          <div className="flex items-center md:p-8 p-6 bg-white w-fit h-fit">
+          <div className="flex items-center md:p-8 p-6 rounded-3xl bg-white w-fit h-fit">
             <div className="my-6 items-center w-fit">
               <h1 className="text-stone-950 text-4xl font-extrabold mr-32">
                 Create <br></br>an account
@@ -20,25 +52,29 @@ export default function RegisterPage() {
               <p className="text-stone-800 text-sm">
                 Already have an account? <br />
                 <a
-                  href="login"
+                  href="/login"
                   className="text-stone-800 font-semibold hover:underline whitespace-nowrap"
                 >
                   Log in here
                 </a>
               </p>
             </div>
-            <form className="w-2/3 h-fit mx-auto" action="#">
+            <form
+              className="w-2/3 h-fit mx-auto"
+              method="post"
+              onSubmit={onSubmit}
+            >
               <div className="m-3">
                 <label className="text-stone-950 text-xs block mb-2 ">
-                  First name
+                  Name
                 </label>
                 <div className="relative flex items-center">
                   <input
-                    name="first name"
+                    name="name"
                     type="text"
                     required
                     className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
-                    placeholder="Enter first name"
+                    placeholder="Enter full name"
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -58,62 +94,6 @@ export default function RegisterPage() {
                       data-original="#000000"
                     ></path>
 
-                    <defs>
-                      <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                        <path
-                          d="M0 512h512V0H0Z"
-                          data-original="#000000"
-                        ></path>
-                      </clipPath>
-                    </defs>
-                    <g
-                      clipPath="url(#a)"
-                      transform="matrix(1.33 0 0 -1.33 0 682.667)"
-                    >
-                      <path
-                        fill="none"
-                        strokeMiterlimit="10"
-                        strokeWidth="40"
-                        d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"
-                        data-original="#000000"
-                      ></path>
-                      <path
-                        d="M472 274.9V107.999c0-11.027-8.972-20-20-20H60c-11.028 0-20 8.973-20 20V274.9L0 304.652V107.999c0-33.084 26.916-60 60-60h392c33.084 0 60 26.916 60 60v196.653Z"
-                        data-original="#000000"
-                      ></path>
-                    </g>
-                  </svg>
-                </div>
-              </div>
-              <div className="m-3">
-                <label className="text-stone-950 text-xs block mb-2 ">
-                  Last name
-                </label>
-                <div className="relative flex items-center">
-                  <input
-                    name="last name"
-                    type="text"
-                    required
-                    className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
-                    placeholder="Enter last name"
-                  />
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="#bbb"
-                    stroke="#bbb"
-                    className="w-4 h-4 absolute right-2"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      cx="10"
-                      cy="7"
-                      r="6"
-                      data-original="#000000"
-                    ></circle>
-                    <path
-                      d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-                      data-original="#000000"
-                    ></path>
                     <defs>
                       <clipPath id="a" clipPathUnits="userSpaceOnUse">
                         <path
@@ -199,7 +179,10 @@ export default function RegisterPage() {
                     className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
                     placeholder="Enter password"
                   />
-                  <button type="button" onClick={handlePassword}>
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="#bbb"
@@ -215,20 +198,22 @@ export default function RegisterPage() {
                   </button>
                 </div>
               </div>
-
               <div className="m-3">
                 <label className="text-stone-950 text-xs block mb-2">
                   Confirm password
                 </label>
                 <div className="relative flex items-center">
                   <input
-                    name=" confirm password"
+                    name="confirm password"
                     type={showPassword ? "text" : "password"}
                     required
                     className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
                     placeholder="Confirm password"
                   />
-                  <button type="submit" onClick={handlePassword}>
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="#bbb"
@@ -243,13 +228,15 @@ export default function RegisterPage() {
                     </svg>
                   </button>
                 </div>
+                {error && (
+                  <span className="text-red-700 text-sm p-2">{error}</span>
+                )}
               </div>
-
               <div className="mt-12">
                 <input
                   type="submit"
                   value="Register"
-                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
+                  className="w-full rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
                 />
               </div>
             </form>

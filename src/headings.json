@@ -1,6 +1,13 @@
-[
-  { "key": 1, "value": "First name" },
-  { "key": 2, "value": "Last name" },
-  { "key": 3, "value": "Email" },
-  { "key": 4, "value": "Position" }
-]
+{
+  "employees": [
+    { "key": 1, "value": "Name" },
+    { "key": 2, "value": "Email" },
+    { "key": 3, "value": "Position" }
+  ],
+  "entries": [
+    { "key": 1, "value": "Employee" },
+    { "key": 2, "value": "Time entry type" },
+    { "key": 3, "value": "Date" },
+    { "key": 4, "value": "Time" }
+  ]
+}

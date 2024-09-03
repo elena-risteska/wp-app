@@ -1,0 +1,1362 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Schedule tracker API",
+    "description": "API for tracking hours at/off work for GrabIt employees.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Create a new account",
+        "description": "Create a new account with the provided data.",
+        "operationId": "86b99167953f28d81ec79b565fdc5f52",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "Full name of the user.",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "description": "Email of the user.",
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  },
+                  "password": {
+                    "description": "Account password.",
+                    "type": "string",
+                    "example": "12345678"
+                  },
+                  "password_confirmation": {
+                    "description": "Re-enter password.",
+                    "type": "string",
+                    "example": "12345678"
+                  },
+                  "role": {
+                    "description": "Role of the user. One of: 'admin', 'hr', 'manager', 'user'.",
+                    "type": "string",
+                    "example": "hr"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User successfully created. Returns token for authorization.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "token_type": "Bearer",
+                  "expires_in": 31536000,
+                  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZWI2MDRjNTc3OWE5YTU3NGY4YWZkNTdiZmUzZGQ0YjUzNmM1ZjI2MTA5Zjg5YTc1OGRkMDVkYTI3ZTc0YTY3NzNiY2E4ZjVjYjkxYTQ0NmUiLCJpYXQiOjE3MjQxNTg1NzkuMjExMjIxLCJuYmYiOjE3MjQxNTg1NzkuMjExMjI0LCJleHAiOjE3NTU2OTQ1NzguNzA3NTgxLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.pyBufsvTtCzZEiA2h5X1m6QT8nCbbWrVYwWQKOjVH0VZ03Qzvu2icyasUGoaTQaZ_cTjm8SEa2jlpWP3U-lZyj3qGor-YqJs21xAwPfmeW3qTeuVCy5Et67LwZTzVjvOe_U6B8zSSbixyHNflHXPi0GvQRpvILU40y0NwEpT205qIfawpnJ_hySBkl6FRRO-Q-FnBe43cNqzFIdHugLd0oQNumX7g3pZTGsX4YC7xPmgdgDX6avtkqCTM-pA72yIJDek3CAYLYR7DrKu2JC9uLnKGMsA-OEfGCs3nGDaXUpZBJxh7208OdDglQteke3XrYAAdMEQcjNxUi-5XvnntjmGJmRT7A19k266FYomdUbs6_mJjKx6aLmSJm27HQ_13oZt7MIvuQBSaf5q-8zfp710ONaUyMFnYaiJWHff2QHTZqGrXUiE_XsTeHfdGB5KBG2WlfXm9x4cUtZAbSz-0GRgd-XkexvK2TEh8Ez5SpIBLhEIK3CH9nTz2IgMEAJoS5iOB1qRDdPbKhwmVhp3BcTYDoJH8ehRxf80_XGcwlePUq_xMnjRBFh-SyzsfGBQ5avwiQRQ3eCNcaTHv3ztq6RHolisp9SiNf1SfUBQFwkOAopGrF-d4rxTGwQSbVNUIU7UwqoM_isy-RNfUMb_4jrgRJ4Ear19WRy8PUHNzIw",
+                  "refresh_token": "def50200c53b92fb01c227de3a0dd49e1cf844d643fcfb12ebcf35650788e6ccc779e4f97cd6c63b5c466ee5f908c2077c4086cc0b9af03e7bca54efcff6249b16d9c57f30a945e0c1591e7115c695d9e48dc77e37fbc1efa4406c1a8d017608e63d50a90eea2e71d2ae78d2528e8affe6bb27da23c8aa01157c74a5696ad1ba65a14ec3d842edb38479cf8a26717e957a666aadc2b2dffa6c72200d13e49a7b613c3f6772a94106e180182f314288e7d732a657e47d4f9a704f55d852eca0eaa6cc005eabb2b5910366a7083e3d47f7d7b0b56d2192018bdf7f45761b1f7087fa83fbc4e84378d5e2459bc2b3a1e3fb9543f9c7432e450953486c971373f9dc232ffbf39e5f1e2314a24d49f125d1f15e2272d1c67e32e25fa461e0e427c54b0f9b04c7f838be3c66435b1ce181043a53418a8bbf0a02b83b4717a74c905002eb0d7d2c50b28c61ca55468fb67551b638e5aea983a9bbb150dd0f9b2ab35254b0"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable content",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "The name field is required. (and 1 more error)",
+                  "errors": {
+                    "name": ["The name field is required."],
+                    "password": [
+                      "The password field confirmation does not match."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login to your account",
+        "description": "login to your account with the provided data.",
+        "operationId": "adbe720dc4dcedd623b9794954f55254",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "description": "Email of the user.",
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  },
+                  "password": {
+                    "description": "Account password.",
+                    "type": "string",
+                    "example": "12345678"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in. Returns token for authorization.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "token_type": "Bearer",
+                  "expires_in": 31536000,
+                  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZWI2MDRjNTc3OWE5YTU3NGY4YWZkNTdiZmUzZGQ0YjUzNmM1ZjI2MTA5Zjg5YTc1OGRkMDVkYTI3ZTc0YTY3NzNiY2E4ZjVjYjkxYTQ0NmUiLCJpYXQiOjE3MjQxNTg1NzkuMjExMjIxLCJuYmYiOjE3MjQxNTg1NzkuMjExMjI0LCJleHAiOjE3NTU2OTQ1NzguNzA3NTgxLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.pyBufsvTtCzZEiA2h5X1m6QT8nCbbWrVYwWQKOjVH0VZ03Qzvu2icyasUGoaTQaZ_cTjm8SEa2jlpWP3U-lZyj3qGor-YqJs21xAwPfmeW3qTeuVCy5Et67LwZTzVjvOe_U6B8zSSbixyHNflHXPi0GvQRpvILU40y0NwEpT205qIfawpnJ_hySBkl6FRRO-Q-FnBe43cNqzFIdHugLd0oQNumX7g3pZTGsX4YC7xPmgdgDX6avtkqCTM-pA72yIJDek3CAYLYR7DrKu2JC9uLnKGMsA-OEfGCs3nGDaXUpZBJxh7208OdDglQteke3XrYAAdMEQcjNxUi-5XvnntjmGJmRT7A19k266FYomdUbs6_mJjKx6aLmSJm27HQ_13oZt7MIvuQBSaf5q-8zfp710ONaUyMFnYaiJWHff2QHTZqGrXUiE_XsTeHfdGB5KBG2WlfXm9x4cUtZAbSz-0GRgd-XkexvK2TEh8Ez5SpIBLhEIK3CH9nTz2IgMEAJoS5iOB1qRDdPbKhwmVhp3BcTYDoJH8ehRxf80_XGcwlePUq_xMnjRBFh-SyzsfGBQ5avwiQRQ3eCNcaTHv3ztq6RHolisp9SiNf1SfUBQFwkOAopGrF-d4rxTGwQSbVNUIU7UwqoM_isy-RNfUMb_4jrgRJ4Ear19WRy8PUHNzIw",
+                  "refresh_token": "def50200c53b92fb01c227de3a0dd49e1cf844d643fcfb12ebcf35650788e6ccc779e4f97cd6c63b5c466ee5f908c2077c4086cc0b9af03e7bca54efcff6249b16d9c57f30a945e0c1591e7115c695d9e48dc77e37fbc1efa4406c1a8d017608e63d50a90eea2e71d2ae78d2528e8affe6bb27da23c8aa01157c74a5696ad1ba65a14ec3d842edb38479cf8a26717e957a666aadc2b2dffa6c72200d13e49a7b613c3f6772a94106e180182f314288e7d732a657e47d4f9a704f55d852eca0eaa6cc005eabb2b5910366a7083e3d47f7d7b0b56d2192018bdf7f45761b1f7087fa83fbc4e84378d5e2459bc2b3a1e3fb9543f9c7432e450953486c971373f9dc232ffbf39e5f1e2314a24d49f125d1f15e2272d1c67e32e25fa461e0e427c54b0f9b04c7f838be3c66435b1ce181043a53418a8bbf0a02b83b4717a74c905002eb0d7d2c50b28c61ca55468fb67551b638e5aea983a9bbb150dd0f9b2ab35254b0"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Provided password doesn't match the account.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Password mismatch."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "There is no registered account with that email.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "User does not exist."
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable content",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "The email field is required.",
+                  "errors": {
+                    "name": ["The email field is required."]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Log out of the account.",
+        "description": "Revoke the token of the account provided.",
+        "operationId": "df15ebaca40e163ffb90417c54b30ca2",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully logged out",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Successfully logged out."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/token/refresh": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Refresh token",
+        "description": "Refresh the user's current token.",
+        "operationId": "af52ccf9149eaea8e4f47fb21aef3caa",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "refresh_token": {
+                    "description": "The previousle generated refresh token.",
+                    "type": "string",
+                    "example": "def50200c53b92fb01c227de3a0dd49e1cf844d643fcfb12ebcf35650788e6ccc779e4f97cd6c63b5c466ee5f908c2077c4086cc0b9af03e7bca54efcff6249b16d9c57f30a945e0c1591e7115c695d9e48dc77e37fbc1efa4406c1a8d017608e63d50a90eea2e71d2ae78d2528e8affe6bb27da23c8aa01157c74a5696ad1ba65a14ec3d842edb38479cf8a26717e957a666aadc2b2dffa6c72200d13e49a7b613c3f6772a94106e180182f314288e7d732a657e47d4f9a704f55d852eca0eaa6cc005eabb2b5910366a7083e3d47f7d7b0b56d2192018bdf7f45761b1f7087fa83fbc4e84378d5e2459bc2b3a1e3fb9543f9c7432e450953486c971373f9dc232ffbf39e5f1e2314a24d49f125d1f15e2272d1c67e32e25fa461e0e427c54b0f9b04c7f838be3c66435b1ce181043a53418a8bbf0a02b83b4717a74c905002eb0d7d2c50b28c61ca55468fb67551b638e5aea983a9bbb150dd0f9b2ab35254b0"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token successfully refreshed.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "token_type": "Bearer",
+                  "expires_in": 31536000,
+                  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTU1MWNlOTM3MjU1MWVlZDg0Yzg5OTg4ZWQyMGUxNzYxOWJmY2Y0OTYzMTEyNjIyZTAwMzg4Nzc4ODA5ODE2MzYyMzU2N2M1MjJjMDkxZjUiLCJpYXQiOjE3MjQxNTk3ODguOTIxNzExLCJuYmYiOjE3MjQxNTk3ODguOTIxNzEzLCJleHAiOjE3NTU2OTU3ODguODU0ODM3LCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.LsH_a30sxdX0SB33fjrajQ2EwWQV_2Ss6IOTZ86cL4ELvS3XqYCRxs2xp2VZzlyHf3Zo3yGN7QPLTsjs_n5qAHIh0q6chkOS3OrbtD6hq8o1qE9zAXqH4gUqajyBsnpHDR_hTtZVkXWmnLjfHOGdbA_OJBfiW5X7IUfL_IBKDWMgWjMLbh6pzTYh4sMzHFP228odTVaKY0WUoYiPsZ4ucXXeqCGe2zAtPu5ESv_NKJ_U2jAI-28g9YS_azc-zhmg5Q7fekHoztOyzCsucacVtyZVtGPWC12XXP1iN3e8Deibb8bQAqFIL1u-Csu1-MI3pWbRib7e98CxNfydsyvX9zpIn6ssNMU5AZFaoA0jXPBDKw7tqXBqLqeU6J6NIH5U0tvtjg0wc0TiVsJ4_ybeY8a6NCgiYuQCcGASMJie_0XLRgyizQHjSU1ZK-3yByK1xsIjiiShMCvy3kKN0fdu7sRLAo10arZeXXiL7MhUkNhDYK-dcmN0hqg_7_Pt9h1NEzZ1YyUW1yDN_0QCa8ooK-S61COTDXeIUAFHV-XuxOJj9TJ709DWTsWs0X3Rx0V6mcvPfVYxyHpVoeRRoM2ukD_tIqQpUC78ZMIsw_bitJBAKIQxBTAHJlPxpGMZ2N7fu-UYkNmEHdq340VCp7Vij5iBhUfwokbv8kyywKmy1o4",
+                  "refresh_token": "def50200aadf79673ac4c42241d7ce973d53ff03db5d9c81700afd984fed71abe05d4760b182ced10079732fa2a392397d17ce87a33b52ac78fd75732458fed1658f2d60e0ff09a607b5b0d32ca78d302acaa9aa7ab7e8c5e9dec18b68fb399dfab5c9b225495e425b867877ece6570e74427fa050adcf60ecc6e4d978af8a59c98b3c7146dc55a11f3efffedaa5b8b9ab5a0f75f34986c5e264d0c15be7d94927b7b7f6200b84839051d66216bcd55983b3cac955cba3f9cc085ed14f899508b707284f049c1e4b76eb36abd5881b6245d34e5abd4ef2f8e06a5fce1aa96ebcfa4abef88810404f530d6246dae4841a35af626d7ad8e333e4f6adbae02cb49dcc907e3f5de8af96a4f4806e27f958e9610af4be9409b90fcd2396ea57ba48fd3d48f27a277b3361aaee7a9fc036dc1d6e27a6aeaf5a547ce4cbf359ea2b8800d76e58e2dd09900dd2c472ebea6e450500a76279492792789e54955396991d7082"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Content not acceptable.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Refresh token not sent."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/time-entries": {
+      "get": {
+        "tags": ["TimeEntry"],
+        "summary": "Get list of all time entries",
+        "description": "Retrieve a paginated list of all time entries. User has to have role 'hr'.",
+        "operationId": "5ecd955e81c5c8316c34b8c24726c1e5",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of users per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 5
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of current page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of time entries. If there are no time entries, 'data' is an empty array.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "current_page": 1,
+                  "data": [
+                    {
+                      "id": 2,
+                      "date": "2024-08-08",
+                      "time": "08:00:00",
+                      "time_entry_type": {
+                        "id": 1,
+                        "type": "clock_in"
+                      },
+                      "user": {
+                        "id": 1,
+                        "name": "John Doe",
+                        "email": "johndoe@gmail.com"
+                      }
+                    },
+                    {
+                      "id": 3,
+                      "date": "2005-08-15",
+                      "time": "15:52:01",
+                      "time_entry_type": {
+                        "id": 1,
+                        "type": "clock_in"
+                      },
+                      "user": {
+                        "id": 2,
+                        "name": "John Doe 2",
+                        "email": "johndoe2@gmail.com"
+                      }
+                    }
+                  ],
+                  "first_page_url": "http://localhost/api/time-entries?page=1",
+                  "from": 1,
+                  "last_page": 1,
+                  "last_page_url": "http://localhost/api/time-entries?page=1",
+                  "links": [
+                    {
+                      "url": null,
+                      "label": "&laquo; Previous",
+                      "active": false
+                    },
+                    {
+                      "url": "http://localhost/api/time-entries?page=1",
+                      "label": "1",
+                      "active": true
+                    },
+                    {
+                      "url": "http://localhost/api/time-entries?page=2",
+                      "label": "2",
+                      "active": false
+                    },
+                    {
+                      "url": "http://localhost/api/time-entries?page=2",
+                      "label": "Next &raquo;",
+                      "active": false
+                    }
+                  ],
+                  "next_page_url": "http://localhost/api/time-entries?page=2",
+                  "path": "http://localhost/api/time-entries",
+                  "per_page": 1,
+                  "prev_page_url": null,
+                  "to": 1,
+                  "total": 2
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/user/{user_id}/time-entries": {
+      "get": {
+        "tags": ["TimeEntry"],
+        "summary": "Get list of all time entries for specified user",
+        "description": "Retrieve a paginated list of all time entries for specified user.  User has to have role 'hr' or role 'user' with the same id as {user_id}..",
+        "operationId": "fab0526f8296bebdbc84ba18d4a9da63",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of users per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 5
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of current page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "Id of the user",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of time entries for user. If there are no time entries, 'data' is an empty array.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "current_page": 1,
+                  "data": [
+                    {
+                      "id": 2,
+                      "date": "2024-08-08",
+                      "time": "08:00:00",
+                      "time_entry_type": {
+                        "id": 1,
+                        "type": "clock_in"
+                      },
+                      "user": {
+                        "id": 2,
+                        "name": "John Doe",
+                        "email": "johndoe@gmail.com"
+                      }
+                    },
+                    {
+                      "id": 3,
+                      "date": "2005-08-15",
+                      "time": "15:52:01",
+                      "time_entry_type": {
+                        "id": 1,
+                        "type": "clock_in"
+                      },
+                      "user": {
+                        "id": 2,
+                        "name": "John Doe",
+                        "email": "johndoe@gmail.com"
+                      }
+                    }
+                  ],
+                  "first_page_url": "http://localhost/api/time-entries?page=1",
+                  "from": 1,
+                  "last_page": 1,
+                  "last_page_url": "http://localhost/api/time-entries?page=1",
+                  "links": [
+                    {
+                      "url": null,
+                      "label": "&laquo; Previous",
+                      "active": false
+                    },
+                    {
+                      "url": "http://localhost/api/time-entries?page=1",
+                      "label": "1",
+                      "active": true
+                    },
+                    {
+                      "url": "http://localhost/api/time-entries?page=2",
+                      "label": "2",
+                      "active": false
+                    },
+                    {
+                      "url": "http://localhost/api/time-entries?page=2",
+                      "label": "Next &raquo;",
+                      "active": false
+                    }
+                  ],
+                  "next_page_url": "http://localhost/api/time-entries?page=2",
+                  "path": "http://localhost/api/time-entries",
+                  "per_page": 1,
+                  "prev_page_url": null,
+                  "to": 1,
+                  "total": 2
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/time-entries/{entry_id}": {
+      "get": {
+        "tags": ["TimeEntry"],
+        "summary": "Get a specific time entry.",
+        "description": "Retrieve a time entry by specified id. User has to have role 'hr'.",
+        "operationId": "a5513ac1106fc69bff3a427be9e870e8",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          },
+          {
+            "name": "entry_id",
+            "in": "path",
+            "description": "Id of the specific time entry.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieves data for a specific time entry.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": 2,
+                  "date": "2024-08-08",
+                  "time": "08:00:00",
+                  "user": {
+                    "id": 2,
+                    "name": "John Doe",
+                    "email": "johndoe@gmail.com",
+                    "roles": [
+                      {
+                        "id": 4,
+                        "name": "user",
+                        "guard_name": "web",
+                        "created_at": "2024-08-13T13:28:01.000000Z",
+                        "updated_at": "2024-08-13T13:28:01.000000Z",
+                        "pivot": {
+                          "model_type": "App\\\\Models\\\\User",
+                          "model_id": 2,
+                          "role_id": 4
+                        }
+                      }
+                    ]
+                  },
+                  "time_entry_type": {
+                    "id": 1,
+                    "type": "clock_in"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Time entry not found.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Time entry not found"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": ["TimeEntry"],
+        "summary": "Update a time entry",
+        "description": "Update time entry's information by id. User has to have role 'hr'.",
+        "operationId": "797738dff25258e255e6c2651b35109a",
+        "parameters": [
+          {
+            "name": "entry_id",
+            "in": "path",
+            "description": "ID of the time entry to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "time_entry_type_id": {
+                    "description": "Id of the time entry type. One of 1, 2, 3, 4.",
+                    "type": "integer",
+                    "example": "1"
+                  },
+                  "date": {
+                    "description": "The date of the time entry. Format: Y-m-d.",
+                    "type": "string",
+                    "example": "2020-10-23"
+                  },
+                  "time": {
+                    "description": "The time of the time entry. Format: H:i:s.v.",
+                    "type": "string",
+                    "example": "08:00:00.000"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Time entry successfully updated",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": 24,
+                  "date": "2024-08-21",
+                  "time": "08:00:00",
+                  "user": {
+                    "id": 2,
+                    "name": "John Doe",
+                    "email": "johndoe@gmail.com",
+                    "roles": [
+                      {
+                        "id": 4,
+                        "name": "user",
+                        "guard_name": "web",
+                        "created_at": "2024-08-13T13:28:01.000000Z",
+                        "updated_at": "2024-08-13T13:28:01.000000Z",
+                        "pivot": {
+                          "model_type": "App\\\\Models\\\\User",
+                          "model_id": 2,
+                          "role_id": 4
+                        }
+                      }
+                    ]
+                  },
+                  "time_entry_type": {
+                    "id": 1,
+                    "type": "clock_in"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Time entry not found.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Time entry not found."
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable content",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "The time field must match the format H:i:s.v\\\\Z.",
+                  "errors": {
+                    "time": [
+                      "The time field must match the format H:i:s.v\\\\Z."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["TimeEntry"],
+        "summary": "Delete a time entry",
+        "description": "Delete a time entry by id. User has to have role 'hr'.",
+        "operationId": "d04976a3ff3a4fdb636946f87e168763",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          },
+          {
+            "name": "entry_id",
+            "in": "path",
+            "description": "ID of the time entry to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Time entry successfully deleted",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Time entry successfully deleted."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Time entry not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Time entry not found."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/time-entries/create": {
+      "post": {
+        "tags": ["TimeEntry"],
+        "summary": "Create new time entries",
+        "description": "Create one or multiple new time entries with the provided data. User has to have role 'hr'.",
+        "operationId": "ff08c0a673661d06beff0821481bfb82",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "time_entry_type_id": {
+                    "description": "Id of the time entry type. One of 1, 2, 3, 4.",
+                    "type": "integer",
+                    "example": "1"
+                  },
+                  "date_time": {
+                    "description": "The date and time of the time entry. Format: Y-m-dTH:i:s.Zv",
+                    "type": "string",
+                    "example": "2020-10-23T08:00:00.000Z"
+                  },
+                  "user_ids": {
+                    "description": "Arrays of users you want to add a time entry for.",
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "example": "[1,2,5]"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Time entries successfully created",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Time entries created successfully.",
+                  "data": [
+                    {
+                      "date": "2024-08-21",
+                      "time": "10:00:00",
+                      "id": 24
+                    },
+                    {
+                      "date": "2024-08-21",
+                      "time": "10:00:00",
+                      "id": 25
+                    },
+                    {
+                      "date": "2024-08-21",
+                      "time": "10:00:00",
+                      "id": 26
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable content",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "The date_time field is required",
+                  "errors": {
+                    "date_time": ["The date_time field is required."]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/time-entries/generate": {
+      "get": {
+        "tags": ["TimeEntry"],
+        "summary": "Generate time entries",
+        "description": "Generate time entries for the previous week (Monday - Friday) for all users where there is no specific time entry for the day of the week for the specific user.",
+        "operationId": "85a541ade708ae77d27d237e26ee2ba6",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "No need for creating time entries.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "There is no need for generating time entries for the last week."
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Time entries created.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "There are 24 time entries created for the last week."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get list of users",
+        "description": "Retrieve a paginated list of users. User has to have role 'hr'.",
+        "operationId": "c457726701591d1183b53aa71fc13441",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of users per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 5
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of current page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of users. If there are no users, 'data' is an empty array. User has to have role 'hr'.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "current_page": 1,
+                  "data": [
+                    {
+                      "id": 1,
+                      "name": "John Doe",
+                      "email": "johndoe1@gmail.com",
+                      "roles": [
+                        {
+                          "id": 4,
+                          "name": "user",
+                          "guard_name": "web",
+                          "created_at": "2024-08-13T13:28:01.000000Z",
+                          "updated_at": "2024-08-13T13:28:01.000000Z",
+                          "pivot": {
+                            "model_type": "App\\\\Models\\\\User",
+                            "model_id": 1,
+                            "role_id": 4
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2,
+                      "name": "John Doe",
+                      "email": "johndoe2@gmail.com",
+                      "roles": [
+                        {
+                          "id": 3,
+                          "name": "hr",
+                          "guard_name": "web",
+                          "created_at": "2024-08-13T13:28:01.000000Z",
+                          "updated_at": "2024-08-13T13:28:01.000000Z",
+                          "pivot": {
+                            "model_type": "App\\\\Models\\\\User",
+                            "model_id": 2,
+                            "role_id": 3
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": 3,
+                      "name": "John Doe",
+                      "email": "johndoe3@gmail.com",
+                      "roles": [
+                        {
+                          "id": 4,
+                          "name": "user",
+                          "guard_name": "web",
+                          "created_at": "2024-08-13T13:28:01.000000Z",
+                          "updated_at": "2024-08-13T13:28:01.000000Z",
+                          "pivot": {
+                            "model_type": "App\\\\Models\\\\User",
+                            "model_id": 3,
+                            "role_id": 4
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": 4,
+                      "name": "John Doe",
+                      "email": "johndoe4@gmail.com",
+                      "roles": [
+                        {
+                          "id": 4,
+                          "name": "user",
+                          "guard_name": "web",
+                          "created_at": "2024-08-13T13:28:01.000000Z",
+                          "updated_at": "2024-08-13T13:28:01.000000Z",
+                          "pivot": {
+                            "model_type": "App\\\\Models\\\\User",
+                            "model_id": 4,
+                            "role_id": 4
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "first_page_url": "http://localhost/api/users?page=1",
+                  "from": 1,
+                  "last_page": 2,
+                  "last_page_url": "http://localhost/api/users?page=2",
+                  "links": [
+                    {
+                      "url": null,
+                      "label": "&laquo; Previous",
+                      "active": false
+                    },
+                    {
+                      "url": "http://localhost/api/users?page=1",
+                      "label": "1",
+                      "active": true
+                    },
+                    {
+                      "url": "http://localhost/api/users?page=2",
+                      "label": "2",
+                      "active": false
+                    },
+                    {
+                      "url": "http://localhost/api/users?page=2",
+                      "label": "Next &raquo;",
+                      "active": false
+                    }
+                  ],
+                  "next_page_url": "http://localhost/api/users?page=2",
+                  "path": "http://localhost/api/users",
+                  "per_page": 2,
+                  "prev_page_url": null,
+                  "to": 2,
+                  "total": 4
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/create": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "description": "Create a new user with the provided data. User has to have role 'hr'.",
+        "operationId": "d37ea9642c2cfbe867361ca7da44eec7",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "Full name of the user.",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "description": "Email of the user.",
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  },
+                  "password": {
+                    "description": "Account password.",
+                    "type": "string",
+                    "example": "12345678"
+                  },
+                  "password_confirmation": {
+                    "description": "Re-enter password.",
+                    "type": "string",
+                    "example": "12345678"
+                  },
+                  "role": {
+                    "description": "Role of the user. One of: 'admin', 'hr', 'manager', 'user'.",
+                    "type": "string",
+                    "example": "hr"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User successfully created",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "User successfully created."
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable content",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "The name field is required. (and 1 more error)",
+                  "errors": {
+                    "name": ["The name field is required."],
+                    "password": [
+                      "The password field confirmation does not match."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/{user_id}": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update a user",
+        "description": "Update a user's information by id. User has to have role 'hr'.",
+        "operationId": "c64f78766f4915182147dd62bcc1e3f3",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of the user to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "Full name of the user.",
+                    "type": "string",
+                    "example": "John Doe New"
+                  },
+                  "email": {
+                    "description": "Email of the user.",
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  },
+                  "role": {
+                    "description": "Role of the user. One of: 'admin', 'hr', 'manager', 'user'.",
+                    "type": "string",
+                    "example": "hr"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully updated",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": 2,
+                  "name": "John Doe New",
+                  "email": "johndoe@gmail.com",
+                  "roles": [
+                    {
+                      "id": 4,
+                      "name": "user",
+                      "guard_name": "web",
+                      "created_at": "2024-08-13T13:28:01.000000Z",
+                      "updated_at": "2024-08-13T13:28:01.000000Z",
+                      "pivot": {
+                        "model_type": "App\\\\Models\\\\User",
+                        "model_id": 2,
+                        "role_id": 4
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "User not found."
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable content",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "The name field must be a string.",
+                  "errors": {
+                    "name": ["The name field must be a string."]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete a user",
+        "description": "Delete a user by id. User has to have role 'hr'.",
+        "operationId": "8813fccf55a87ec7b1237ecdee00419f",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token used for authentication",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <your-token-here>"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of the user to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully deleted",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "User successfully deleted."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "User not found."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "description": "JWT Bearer token authentication",
+        "bearerFormat": "JWT",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "API Endpoints for Authorization"
+    },
+    {
+      "name": "TimeEntry",
+      "description": "API Endpoints for Time Entries Management"
+    },
+    {
+      "name": "Users",
+      "description": "API Endpoints for User Management"
+    }
+  ]
+}

@@ -1,38 +1,35 @@
-"use client";
-
+import { GET } from "@/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { DELETE } from "@/client";
 
-export default function DeleteEmployee(id: any) {
+export default function GenerateEntries() {
   const [modal, setModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   let token: string;
 
-  async function onDelete() {
-    console.log("userID: " + id.id);
+  async function onClick() {
     token = localStorage.getItem("token") || "";
 
     try {
-      const response: any = await DELETE("/api/users/{user_id}", {
+      const response = await GET("/api/time-entries/generate", {
         params: {
           header: {
             Authorization: `Bearer ${token}`,
           },
-          path: {
-            user_id: id.id,
-          },
         },
       });
 
-      console.log(response);
-
-      if (response.response.status === 200) {
-        router.push("/employees");
+      if (
+        response.response.status === 200 ||
+        response.response.status === 201
+      ) {
+        router.push("/time-entries");
       } else {
         setError(`Error: ${response.response.statusText || "Unknown error"}`);
       }
+
+      console.log(response);
     } catch (err) {
       setError("An unexpected error occurred.");
       console.error(err);
@@ -40,13 +37,15 @@ export default function DeleteEmployee(id: any) {
   }
   return (
     <>
-      <button
-        type="button"
-        className="rounded-2xl w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-red-800 hover:bg-red-700 focus:outline-none"
-        onClick={() => setModal(true)}
-      >
-        Delete employee
-      </button>
+      <div className="w-fit">
+        <button
+          onClick={() => setModal(true)}
+          type="button"
+          className="w-fit rounded-2xl float-right py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider text-white bg-green-800 hover:bg-green-700 focus:outline-none"
+        >
+          Generate time entries
+        </button>
+      </div>
       {modal ? (
         <>
           <div
@@ -59,17 +58,17 @@ export default function DeleteEmployee(id: any) {
             >
               <div className="items-center h-fit w-fit">
                 <div className="flex items-center md:p-8 p-6 bg-white rounded-3xl h-full">
-                  <div className="max-w-fit w-full mx-auto">
+                  <div className="max-w-lg w-full mx-auto">
                     <div className="mb-12">
                       <h1 className="text-stone-950 text-center text-3xl font-bold">
-                        Are you sure you want to <br></br>
-                        delete this employee?
+                        Are you sure you want to generate<br></br>time entries
+                        for the previous week?
                       </h1>
                     </div>
                     <div className="mt-8">
                       <button
                         type="button"
-                        className="rounded-2xl w-fit float-left py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-800 hover:bg-stone-700 focus:outline-none"
+                        className="w-1/4 float-left rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-800 hover:bg-stone-700 focus:outline-none"
                         onClick={() => {
                           setModal(false);
                         }}
@@ -77,11 +76,11 @@ export default function DeleteEmployee(id: any) {
                         Cancel
                       </button>
                       <button
-                        onClick={onDelete}
-                        type="submit"
-                        className="rounded-2xl w-2/4 float-right py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-red-800 hover:bg-red-700 focus:outline-none"
+                        onClick={onClick}
+                        type="button"
+                        className="w-2/4 float-right rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-green-800 hover:bg-green-700 focus:outline-none"
                       >
-                        Delete
+                        Generate
                       </button>
                     </div>
                   </div>
@@ -92,7 +91,7 @@ export default function DeleteEmployee(id: any) {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-      {error && alert({ error })}
+      {/* {error && alert({ error })} */}
     </>
   );
 }

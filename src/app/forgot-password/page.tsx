@@ -1,10 +1,10 @@
 export default function ForgotPasswordPage() {
   return (
     <>
-      <div className="font-[sans-serif] bg-stone-300 md:h-screen">
-        <div className="flex items-center h-fit w-fit m-auto py-24">
-          <div className="flex items-center md:p-8 p-6 bg-white h-full">
-            <form className="max-w-lg w-full mx-auto" action="#">
+      <div className="font-[sans-serif] bg-stone-950 md:h-screen">
+        <div className="flex items-center h-fit w-fit mx-auto py-36">
+          <div className="flex items-center md:p-8 p-6 bg-white rounded-3xl h-full">
+            <form className="max-w-lg w-full mx-auto" method="post" action="#">
               <div className="mb-12">
                 <h1 className="text-stone-950 text-4xl font-extrabold">
                   Forgot your password?
@@ -61,7 +61,7 @@ export default function ForgotPasswordPage() {
                 <input
                   type="submit"
                   value="Send code"
-                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
+                  className="w-full rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
                 />
               </div>
 
@@ -72,7 +72,7 @@ export default function ForgotPasswordPage() {
                 Remember your password?{" "}
                 <a
                   href="login"
-                  className=" cursor-pointer text-stone-800 font-semibold hover:underline ml-1 whitespace-nowrap"
+                  className="cursor-pointer text-stone-800 font-semibold hover:underline ml-1 whitespace-nowrap"
                 >
                   Log in here
                 </a>

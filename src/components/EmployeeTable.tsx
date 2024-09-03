@@ -1,19 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-
+import { GET } from "@/client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Headings from "@/headings.json";
-import Data from "@/data.json";
-import EditEmployee from "./EditEmployee";
 
 export default function EmployeeTable() {
+  const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
   const lastIndex = currentPage * recordsPerPage;
   const startIndex = lastIndex - recordsPerPage;
-  const numberOfPages = Math.ceil(Data.length / recordsPerPage);
-  const records = Data.slice(startIndex, lastIndex);
+  const numberOfPages = Math.ceil(data.length / recordsPerPage);
+  const records = data.slice(startIndex, lastIndex);
+  const router = useRouter();
+  let token: string;
 
   function nextPage() {
     if (currentPage != numberOfPages) {
@@ -32,45 +33,69 @@ export default function EmployeeTable() {
     setRecordsPerPage(n);
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      token = localStorage.getItem("token") || "";
+
+      try {
+        const response: any = await GET("/api/users", {
+          params: {
+            header: {
+              Authorization: `Bearer ${token}`,
+            },
+            query: {
+              per_page: 100,
+              page: 1,
+            },
+          },
+        });
+
+        const employees = response.data.data;
+        setData(employees);
+        console.log(employees);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
-      <table className="w-11/12 m-auto bg-white overflow-hidden">
+      <table className="w-11/12 m-auto bg-white overflow-hidden rounded-3xl">
         <thead className="whitespace-nowrap text-center bg-stone-900">
           <tr>
             <td className="w-1/12 p-4 text-xs font-semibold text-stone-200">
               #
             </td>
-            {Headings.map((heading) => (
-              <td className="w-1/6 p-4 text-xs font-semibold text-stone-200">
+            {Headings.employees.map((heading) => (
+              <td
+                key={heading.key}
+                className="w-1/6 p-4 text-xs font-semibold text-stone-200"
+              >
                 {heading.value}
               </td>
             ))}
-            <td className="w-1/12 p-4 text-xs font-semibold text-stone-200">
-              Actions
-            </td>
           </tr>
         </thead>
-
         <tbody className="whitespace-nowrap text-center">
-          {records.map((data) => (
-            <tr className="hover:bg-stone-50">
+          {records.map((employee: any, index) => (
+            <tr
+              key={employee.id}
+              className="hover:bg-stone-50 hover:cursor-pointer"
+              onClick={() => router.push(`/employees/${employee.id}/edit`)}
+            >
               <td className="p-4 text-[15px] text-stone-950">
-                <span className="">{Data.indexOf(data) + 1}</span>
+                {(currentPage - 1) * recordsPerPage + index + 1}
               </td>
               <td className="p-4 text-[15px] text-stone-950">
-                {data.firstName}
+                {employee.name}
               </td>
               <td className="p-4 text-[15px] text-stone-950">
-                {data.lastName}
-              </td>
-              <td className="p-4 text-[15px] text-stone-950">{data.email}</td>
-              <td className="p-4 text-[15px] text-stone-950">
-                {data.position}
+                {employee.email}
               </td>
               <td className="p-4 text-[15px] text-stone-950">
-                <Link href={`/employees/${data.id}/edit`}>
-                  <EditEmployee />
-                </Link>
+                {employee.roles[0].name}
               </td>
             </tr>
           ))}
@@ -79,27 +104,25 @@ export default function EmployeeTable() {
       <div className="md:flex m-auto mt-8 w-10/12">
         <span className="text-sm text-stone-500 flex-1">
           Showing {startIndex + 1} to{" "}
-          {lastIndex > Data.length ? Data.length : lastIndex} of {Data.length}{" "}
+          {lastIndex > data.length ? data.length : lastIndex} of {data.length}{" "}
           records
         </span>
         <div className="flex items-center max-md:mt-4">
           <p className="text-sm text-stone-500">Display</p>
-
           <select
             value={recordsPerPage}
             onChange={handleChange}
-            className="text-sm text-stone-500 border border-stone-400 h-8 px-1 mx-4 outline-none"
+            className="rounded-sm text-sm text-stone-500 border border-stone-400 h-8 px-1 mx-4 outline-none"
           >
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="50">50</option>
           </select>
-
           <div className="flex space-x-1 ml-4">
             <button
               type="button"
               onClick={() => prevPage()}
-              className="flex items-center justify-center cursor-pointer bg-stone-200 hover:bg-stone-300 w-8 h-8"
+              className="rounded flex items-center justify-center cursor-pointer bg-stone-200 hover:bg-stone-300 w-8 h-8"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +147,7 @@ export default function EmployeeTable() {
             <button
               type="button"
               onClick={() => nextPage()}
-              className="flex items-center justify-center cursor-pointer bg-stone-200 hover:bg-stone-300 w-8 h-8"
+              className="rounded-sm flex items-center justify-center cursor-pointer bg-stone-200 hover:bg-stone-300 w-8 h-8"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

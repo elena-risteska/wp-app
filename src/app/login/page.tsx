@@ -1,36 +1,59 @@
 "use client";
 
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { POST } from "@/client";
 import Image from "next/image";
-import { useState } from "react";
-
-import authentication from "../../../public/authentication.svg";
+import logo from "../../../public/logo.svg";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
-  function handlePassword() {
-    setShowPassword(!showPassword);
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    try {
+      const response: any = await POST("/api/login", {
+        body: {
+          email: formData.get("email")?.valueOf().toString(),
+          password: formData.get("password")?.valueOf().toString(),
+        },
+      });
+
+      console.log(response);
+
+      if (response.response.status === 200) {
+        router.push("/employees");
+      } else {
+        setError(`Error: ${response.response.statusText || "Unknown error"}`);
+      }
+      localStorage.setItem("token", response.data.access_token);
+    } catch (err) {
+      setError("An unexpected error occurred.");
+      console.error(err);
+    }
   }
   return (
     <>
-      <div className="font-[sans-serif] bg-stone-300 md:h-screen">
+      <div className="font-[sans-serif] bg-stone-950 md:h-screen">
         <div className="grid md:grid-cols-2 items-center gap-8 h-full">
           <div className="max-md:order-1 p-4">
-            <Image
-              className="ml-32"
-              src={authentication}
-              alt="authentication-image"
-            />
+            <Image priority className="mx-auto w-2/4" src={logo} alt="logo" />
           </div>
-
-          <div className="flex items-center md:p-8 p-6 bg-white h-full">
-            <form className="max-w-lg w-full mx-auto" action="#">
+          <div className="flex items-center bg-white rounded-l-full h-full">
+            <form
+              className="max-w-lg w-full mx-auto"
+              method="post"
+              onSubmit={onSubmit}
+            >
               <div className="mb-12">
                 <h1 className="text-stone-950 text-4xl font-extrabold">
                   Sign in
                 </h1>
               </div>
-
               <div>
                 <label className="text-stone-950 text-xs block mb-2">
                   Email
@@ -90,7 +113,10 @@ export default function LoginPage() {
                     className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
                     placeholder="Enter password"
                   />
-                  <button type="button" onClick={handlePassword}>
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="#bbb"
@@ -105,13 +131,15 @@ export default function LoginPage() {
                     </svg>
                   </button>
                 </div>
+                {error && (
+                  <span className="text-red-700 text-sm p-2">{error}</span>
+                )}
               </div>
-
               <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
                 <div className="flex items-center">
                   <input
-                    id="remember-me"
-                    name="remember-me"
+                    id="remember_me"
+                    name="remember_me"
                     type="checkbox"
                     className="h-4 w-4 shrink-0 text-stone-800 accent-stone-800 focus:ring-stone-800 border-gray-300 rounded-none"
                   />
@@ -121,22 +149,20 @@ export default function LoginPage() {
                 </div>
                 <div>
                   <a
-                    href="forgot-password"
+                    href="/forgot-password"
                     className="text-stone-800 font-semibold text-sm hover:underline"
                   >
                     Forgot Password?
                   </a>
                 </div>
               </div>
-
               <div className="mt-12">
                 <input
                   type="submit"
                   value="Sign in"
-                  className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
+                  className="w-full rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
                 />
               </div>
-
               <div className="my-6 flex items-center">
                 <hr className="w-full border-stone-300" />
               </div>

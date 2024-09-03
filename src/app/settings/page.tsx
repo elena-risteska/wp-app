@@ -1,9 +1,8 @@
 "use client";
 
-import "../globals.css";
-
 import { useState } from "react";
 import DeleteAccount from "@/components/DeleteAccount";
+import "../globals.css";
 
 export default function ProfilePage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,33 +16,16 @@ export default function ProfilePage() {
         <hr className="w-full border-stone-300 mb-8 mt-2" />
       </div>
       <div className="flex flex-row items-center h-fit w-full">
-        <div className="items-center md:p-8 p-6 mx-auto bg-white h-fit w-1/3">
-          <form className="max-w-lg w-full" action="#">
+        <div className="items-center md:p-8 p-6 mx-auto bg-white rounded-3xl h-fit w-1/3">
+          <form className="max-w-lg w-full" method="post" action="#">
             <div className="my-3">
-              <label className="text-stone-950 text-xs block mb-2">
-                First name
-              </label>
+              <label className="text-stone-950 text-xs block mb-2">Name</label>
               <div className="relative flex items-center">
                 <input
-                  name="first name"
+                  name="name"
                   type="text"
                   className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
-                  //   placeholder={Data[id - 1].firstName}
-                  placeholder="Change first name"
-                />
-              </div>
-            </div>
-            <div className="my-3">
-              <label className="text-stone-950 text-xs block mb-2 ">
-                Last name
-              </label>
-              <div className="relative flex items-center">
-                <input
-                  name="last name"
-                  type="text"
-                  className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
-                  //   placeholder={Data[id - 1].lastName}
-                  placeholder="Change last name"
+                  placeholder="Change name"
                 />
               </div>
             </div>
@@ -56,7 +38,6 @@ export default function ProfilePage() {
                   name="email"
                   type="email"
                   className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
-                  //   placeholder={Data[id - 1].email}
                   placeholder="Change email"
                 />
               </div>
@@ -65,13 +46,13 @@ export default function ProfilePage() {
               <input
                 type="submit"
                 value="Save changes"
-                className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
+                className="w-full rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
               />
             </div>
-          </form>{" "}
+          </form>
         </div>
-        <div className="items-center md:p-8 p-6 mx-auto bg-white h-fit w-1/3">
-          <form className="max-w-lg w-full" action="#">
+        <div className="items-center md:p-8 p-6 mx-auto bg-white rounded-3xl h-fit w-1/3">
+          <form className="max-w-lg w-full" method="post" action="#">
             <div className="my-3">
               <label className="text-stone-950 text-xs block mb-2">
                 Old password
@@ -169,7 +150,7 @@ export default function ProfilePage() {
               <input
                 type="submit"
                 value="Change password"
-                className="w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
+                className="w-full rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-950 hover:bg-stone-800 focus:outline-none"
               />
             </div>
           </form>{" "}
