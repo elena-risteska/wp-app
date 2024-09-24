@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { PUT } from "@/client";
 import TimeEntries from "@/components/TimeEntries";
 import DeleteEmployee from "@/components/DeleteEmployee";
@@ -55,7 +55,7 @@ export default function ProfilePage() {
         </div>
         <div className="items-center my-10 md:p-8 p-6 mx-16 bg-white rounded-3xl h-fit w-1/4">
           <div className="text-right">
-            <h1 className="text-stone-950 text-xl font-extrabold">user name</h1>
+            <h1 className="text-stone-950 text-xl font-extrabold">{userID}</h1>
           </div>
           <hr className="w-full border-stone-300 mt-4 mb-10" />
           <form

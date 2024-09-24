@@ -82,16 +82,10 @@ export default function TimeEntries(id: any) {
                 Date: {entry.date}
               </p>
               <p className="text-nowrap items-center justify-center text-sm w-6 h-8">
-                Entry type: {entry.time}
+                Entry type: {entry.time_entry_type.type}
               </p>
               <p className="text-nowrap items-center justify-center text-sm w-6 h-8">
-                Clock in: {entry.time}
-              </p>
-              <p className="text-nowrap items-center justify-center text-sm w-6 h-8">
-                Clock out: {entry.time}
-              </p>
-              <p className="text-nowrap items-center justify-center text-sm w-6 h-8">
-                Duration time: {entry.time}
+                Time: {entry.time}
               </p>
               <DeleteEntry userID={userID} entryID={entry.id} />
               <EditEntry userID={userID} entryID={entry.id} />
@@ -99,7 +93,7 @@ export default function TimeEntries(id: any) {
           </div>
         ))}
       </div>
-      <div className="md:flex m-auto mt-8 w-10/12">
+      <div className="md:flex mx-auto mt-8 w-10/12">
         <span className="text-sm text-stone-500 flex-1">
           Showing {startIndex + 1} to{" "}
           {lastIndex > data.length ? data.length : lastIndex} of {data.length}{" "}

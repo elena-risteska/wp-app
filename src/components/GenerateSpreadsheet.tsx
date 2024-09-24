@@ -1,6 +1,6 @@
 import { GET } from "@/client";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
 export default function GenerateSpreadsheet() {
   const [modal, setModal] = useState(false);
@@ -10,11 +10,8 @@ export default function GenerateSpreadsheet() {
   const router = useRouter();
   let token: string;
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  async function onSubmit() {
     token = localStorage.getItem("token") || "";
-    const formData = new FormData(event.currentTarget);
 
     try {
       const response = await GET("/api/spreadsheet/generate", {
@@ -28,11 +25,16 @@ export default function GenerateSpreadsheet() {
           },
         },
       });
-
-      if (
-        response.response.status === 200 ||
-        response.response.status === 201
-      ) {
+      const nativeResponse = response.response;
+      if (nativeResponse.status === 200 || nativeResponse.status === 201) {
+        const blob = await nativeResponse.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `report_${month}_${year}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
         router.push("/time-entries");
       } else {
         setError(`Error: ${response.response.statusText || "Unknown error"}`);
@@ -74,7 +76,7 @@ export default function GenerateSpreadsheet() {
                   >
                     <div className="mb-8">
                       <h1 className="text-stone-950 text-center text-3xl font-bold">
-                        Generate spreadsheet for all users
+                        Generate spreadsheet<br></br>for all users
                       </h1>
                     </div>
                     <div className="m-3">
@@ -122,7 +124,7 @@ export default function GenerateSpreadsheet() {
                     <div className="mt-8">
                       <button
                         type="button"
-                        className="w-1/4 float-left rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-800 hover:bg-stone-700 focus:outline-none"
+                        className="w-fit float-left rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-stone-800 hover:bg-stone-700 focus:outline-none"
                         onClick={() => {
                           setModal(false);
                         }}

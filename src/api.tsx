@@ -84,6 +84,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/password/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Reset password
+         * @description Reset logged in user's password.
+         */
+        post: operations["3327291a7dc5c7b539ff3deec21cd1da"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/time-entries": {
         parameters: {
             query?: never;
@@ -465,6 +485,76 @@ export interface operations {
             };
             /** @description Content not acceptable. */
             406: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    "3327291a7dc5c7b539ff3deec21cd1da": {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Bearer token used for authentication */
+                Authorization: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The old password of the user.
+                     * @example 12345678
+                     */
+                    old_password?: string;
+                    /**
+                     * @description The new password of the user.
+                     * @example 123456789
+                     */
+                    new_password?: string;
+                    /**
+                     * @description The new password of the user entered again for security.
+                     * @example 123456789
+                     */
+                    new_password_confirmation?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Password Successfully updated. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Provided password doesn't match the account. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description There is no registered account with this token. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Unprocessable content */
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };

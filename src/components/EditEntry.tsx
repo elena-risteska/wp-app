@@ -29,8 +29,8 @@ export default function EditEntry({ userID, entryID }: any) {
           },
         },
         body: {
-          date: "2020-10-23",
-          time: "09:00:00.000",
+          date: formData.get("date")?.valueOf().toString(),
+          time: formData.get("time")?.valueOf().toString(),
           time_entry_type_id: 1,
         },
       });

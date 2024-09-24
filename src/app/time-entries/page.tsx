@@ -97,7 +97,7 @@ export default function TimeEntries() {
             ))}
           </tbody>
         </table>
-        <div className="md:flex m-auto mt-8 w-10/12">
+        <div className="md:flex mx-auto my-8 w-10/12">
           <span className="text-sm text-stone-500 flex-1">
             Showing {startIndex + 1} to{" "}
             {lastIndex > data.length ? data.length : lastIndex} of {data.length}{" "}

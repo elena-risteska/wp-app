@@ -26,7 +26,7 @@ export default function DeleteAccount(id: any) {
     <>
       <button
         type="button"
-        className="w-fit rounded-2xl mr-24 mb-2 float-right py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-red-800 hover:bg-red-700 focus:outline-none"
+        className="w-fit rounded-2xl mr-16 mb-2 float-right py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-red-800 hover:bg-red-700 focus:outline-none"
         onClick={() => setModal(true)}
       >
         Delete account

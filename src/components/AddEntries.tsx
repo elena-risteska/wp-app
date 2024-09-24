@@ -136,7 +136,7 @@ export default function AddEntries() {
                             {data.map((employee: any) => (
                               <SelectItem
                                 key={employee.id}
-                                className="w-full py-2 h-fit px-4 text-left bg-stone-200 hover:bg-stone-300 rounded text-stone-600 border border-stone-400 border-collapse text-sm hover:text-stone-900 cursor-pointer"
+                                className="w-full py-2 h-fit px-4 text-left bg-stone-200 hover:bg-stone-300 text-stone-600 text-sm hover:text-stone-900 cursor-pointer"
                               >
                                 {employee.name}
                               </SelectItem>

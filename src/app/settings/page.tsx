@@ -1,23 +1,99 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import DeleteAccount from "@/components/DeleteAccount";
+import { useRouter } from "next/navigation";
 import "../globals.css";
+import { POST, PUT } from "@/client";
 
 export default function ProfilePage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [role, setRole] = useState("hr");
+  const [error, setError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  let token: string;
+  const router = useRouter();
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    token = localStorage.getItem("token") || "";
+    // console.log("userID: " + userID);
+    const formData = new FormData(event.currentTarget);
+    try {
+      const response: any = await PUT("/api/users/{user_id}", {
+        params: {
+          header: {
+            Authorization: `Bearer ${token}`,
+          },
+          path: {
+            user_id: 1,
+          },
+        },
+        body: {
+          name: formData.get("name")?.valueOf().toString(),
+          email: formData.get("email")?.valueOf().toString(),
+          role: role,
+        },
+      });
+
+      if (response.response.status !== 200) {
+        setError(`Error: ${response.response.statusText || "Unknown error"}`);
+      }
+
+      console.log(response);
+    } catch (err) {
+      setError("An unexpected error occurred.");
+      console.error(err);
+    }
+  }
+
+  async function onChange(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    token = localStorage.getItem("token") || "";
+    const formData = new FormData(event.currentTarget);
+    try {
+      const response: any = await POST("/api/password/reset", {
+        params: {
+          header: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        body: {
+          old_password: formData.get("old-password")?.valueOf().toString(),
+          new_password: formData.get("new-password")?.valueOf().toString(),
+          new_password_confirmation: formData
+            .get("confirm-password")
+            ?.valueOf()
+            .toString(),
+        },
+      });
+      if (response.response.status === 200) {
+        router.push("/settings");
+      }
+
+      if (response.response.status !== 200) {
+        setPasswordError(
+          `Error: ${response.response.statusText || "Unknown error"}`
+        );
+      }
+      console.log(response);
+    } catch (err) {
+      setPasswordError("An unexpected error occurred.");
+      console.error(err);
+    }
+  }
 
   return (
     <>
       <div className="mx-auto w-11/12 h-fit mt-28">
         <h1 className="text-stone-950 text-right mr-16 text-lg font-bold">
-          Details
+          Account details
         </h1>
         <hr className="w-full border-stone-300 mb-8 mt-2" />
       </div>
       <div className="flex flex-row items-center h-fit w-full">
         <div className="items-center md:p-8 p-6 mx-auto bg-white rounded-3xl h-fit w-1/3">
-          <form className="max-w-lg w-full" method="post" action="#">
+          <form className="max-w-lg w-full" method="post" onSubmit={onSubmit}>
             <div className="my-3">
               <label className="text-stone-950 text-xs block mb-2">Name</label>
               <div className="relative flex items-center">
@@ -42,6 +118,7 @@ export default function ProfilePage() {
                 />
               </div>
             </div>
+            {error && <span className="text-red-700 text-sm p-2">{error}</span>}
             <div className="mt-12">
               <input
                 type="submit"
@@ -52,14 +129,14 @@ export default function ProfilePage() {
           </form>
         </div>
         <div className="items-center md:p-8 p-6 mx-auto bg-white rounded-3xl h-fit w-1/3">
-          <form className="max-w-lg w-full" method="post" action="#">
+          <form className="max-w-lg w-full" method="post" onSubmit={onChange}>
             <div className="my-3">
               <label className="text-stone-950 text-xs block mb-2">
                 Old password
               </label>
               <div className="relative flex items-center">
                 <input
-                  name="old password"
+                  name="old-password"
                   type={showPassword ? "text" : "password"}
                   required
                   className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
@@ -90,7 +167,7 @@ export default function ProfilePage() {
               </label>
               <div className="relative flex items-center">
                 <input
-                  name="new password"
+                  name="new-password"
                   type={showPassword ? "text" : "password"}
                   required
                   className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
@@ -121,7 +198,7 @@ export default function ProfilePage() {
               </label>
               <div className="relative flex items-center">
                 <input
-                  name="cofirm password"
+                  name="confirm-password"
                   type={showPassword ? "text" : "password"}
                   required
                   className="w-full text-sm border-b border-stone-300 focus:border-stone-800 px-2 py-3 outline-none"
@@ -146,6 +223,9 @@ export default function ProfilePage() {
                 </button>
               </div>
             </div>
+            {passwordError && (
+              <span className="text-red-700 text-sm p-2">{passwordError}</span>
+            )}
             <div className="mt-12">
               <input
                 type="submit"
