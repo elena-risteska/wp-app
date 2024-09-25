@@ -1,6 +1,8 @@
 import { GET } from "@/client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import React from "react";
+import * as XLSX from "xlsx";
 
 export default function GenerateSpreadsheet() {
   const [modal, setModal] = useState(false);
@@ -10,11 +12,12 @@ export default function GenerateSpreadsheet() {
   const router = useRouter();
   let token: string;
 
-  async function onSubmit() {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     token = localStorage.getItem("token") || "";
 
     try {
-      const response = await GET("/api/spreadsheet/generate", {
+      const response: any = await GET("/api/spreadsheet/generate", {
         params: {
           query: {
             month: month,
@@ -40,7 +43,19 @@ export default function GenerateSpreadsheet() {
         setError(`Error: ${response.response.statusText || "Unknown error"}`);
       }
 
-      console.log(response);
+      // const data: any = response.data;
+
+      // const worksheet = XLSX.utils.json_to_sheet(data);
+      // const workbook = XLSX.utils.book_new();
+      // XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+      // XLSX.writeFile(workbook, `report_${month}_${year}.xlsx`);
+
+      // console.log(response);
+      // if (response.response.status === 200) {
+      //   router.push("/time-entries");
+      // } else {
+      //   setError(`Error: ${response.response.statusText || "Unknown error"}`);
+      // }
     } catch (err) {
       setError("An unexpected error occurred.");
       console.error(err);
@@ -52,7 +67,7 @@ export default function GenerateSpreadsheet() {
         <button
           onClick={() => setModal(true)}
           type="button"
-          className="w-fit rounded-2xl float-right py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider text-white bg-green-800 hover:bg-green-700 focus:outline-none"
+          className="w-fit rounded-2xl float-right py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider text-white bg-teal-800 hover:bg-teal-700 focus:outline-none"
         >
           Generate spreadsheet
         </button>

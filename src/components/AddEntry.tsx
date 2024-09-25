@@ -47,7 +47,7 @@ export default function AddEntry({ userID }: any) {
         <button
           onClick={() => setModal(true)}
           type="button"
-          className="rounded-2xl w-fit float-left py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider text-white bg-green-800 hover:bg-green-700 focus:outline-none"
+          className="rounded-2xl w-fit float-left py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider text-white bg-teal-800 hover:bg-teal-700 focus:outline-none"
         >
           + Add time entry
         </button>
@@ -112,7 +112,7 @@ export default function AddEntry({ userID }: any) {
                       <input
                         type="submit"
                         value="Add time entry"
-                        className="rounded-2xl w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-green-900 hover:bg-green-800 focus:outline-none"
+                        className="rounded-2xl w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-teal-900 hover:bg-teal-800 focus:outline-none"
                       />
                     </div>
                     <div className="mt-8">

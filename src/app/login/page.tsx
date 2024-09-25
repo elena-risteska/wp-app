@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { POST } from "@/client";
 import Image from "next/image";
-import logo from "../../../public/logo.svg";
+import logo from "../../../public/fikt-logo.png";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);

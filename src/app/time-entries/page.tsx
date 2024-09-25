@@ -67,7 +67,7 @@ export default function TimeEntries() {
         <div className="flex flex-row-reverse gap-8 h-fit w-full pr-12">
           <AddEntries />
           <GenerateEntries />
-          <GenerateSpreadsheet />
+          {/* <GenerateSpreadsheet /> */}
         </div>
         <table className="w-11/12 m-auto bg-white overflow-hidden rounded-3xl">
           <thead className="whitespace-nowrap text-center bg-stone-900">

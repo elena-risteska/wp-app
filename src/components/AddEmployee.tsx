@@ -52,7 +52,7 @@ export default function AddEmployee() {
         <button
           onClick={() => setModal(true)}
           type="button"
-          className="rounded-2xl w-fit float-right mr-12 text-nowrap ml-4 py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider text-white bg-green-800 hover:bg-green-700 focus:outline-none"
+          className="rounded-2xl w-fit float-right mr-12 text-nowrap ml-4 py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider text-white bg-teal-800 hover:bg-teal-700 focus:outline-none"
         >
           + Add new employee
         </button>
@@ -194,7 +194,7 @@ export default function AddEmployee() {
                       <input
                         type="submit"
                         value="Add employee"
-                        className="rounded-2xl w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-green-900 hover:bg-green-800 focus:outline-none"
+                        className="rounded-2xl w-full py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-teal-900 hover:bg-teal-800 focus:outline-none"
                       />
                     </div>
                     <button

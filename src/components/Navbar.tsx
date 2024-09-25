@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { POST } from "@/client";
 import Image from "next/image";
 import React from "react";
-import Logo from "../../public/logo.svg";
+import Logo from "../../public/fikt-logo.png";
 
 export default function Navbar() {
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function Navbar() {
     <nav className="bg-stone-950 fixed w-full z-20 top-0 start-0">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between ml-28 p-4">
         <a href="" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <Image priority src={Logo} className="h-8 w-auto h-auto" alt="Logo" />
+          <Image priority src={Logo} className="h-8 w-1/5 h-1/5" alt="Logo" />
         </a>
         <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
           <ul className="flex flex-col font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0">

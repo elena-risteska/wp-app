@@ -41,7 +41,7 @@ export default function GenerateEntries() {
         <button
           onClick={() => setModal(true)}
           type="button"
-          className="w-fit rounded-2xl float-right py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider text-white bg-green-800 hover:bg-green-700 focus:outline-none"
+          className="w-fit rounded-2xl float-right py-3 px-6 mb-8 cursor-pointer text-sm font-semibold tracking-wider text-white bg-teal-800 hover:bg-teal-700 focus:outline-none"
         >
           Generate time entries
         </button>
@@ -78,7 +78,7 @@ export default function GenerateEntries() {
                       <button
                         onClick={onClick}
                         type="button"
-                        className="w-2/4 float-right rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-green-800 hover:bg-green-700 focus:outline-none"
+                        className="w-2/4 float-right rounded-2xl py-3 px-6 cursor-pointer text-sm font-semibold tracking-wider text-white bg-teal-800 hover:bg-teal-700 focus:outline-none"
                       >
                         Generate
                       </button>
